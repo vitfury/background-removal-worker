@@ -1,12 +1,16 @@
-FROM nginx:stable
+FROM php:7.2-apache
 
-COPY app /app
+COPY background-removal-worker /app
+COPY simple-worker-api /var/www/html
 
 # Upgrade installed packages
 RUN apt-get update && apt-get upgrade -y && apt-get clean
 
-# Python package management and basic dependencies
-RUN apt-get install -y curl python3.7 python3.7-dev python3.7-distutils
+# Install all required packages
+RUN apt-get install -y curl python3.7 python3.7-dev python3.7-distutils libsm6 libxext6 libxrender-dev libglib2.0-0 nano sudo
+
+# Don't ask...
+RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toto
 
 # Register the version in alternatives
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
@@ -21,12 +25,5 @@ RUN curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 
 RUN pip3 install -r /app/requirements.txt
 
-COPY app/gui /usr/share/nginx/html
-
 RUN /app/setup.sh
-
-RUN apt update && apt install -y libsm6 libxext6
-RUN apt-get install -y libxrender-dev
-
-RUN apt-get install -y libglib2.0-0
 
