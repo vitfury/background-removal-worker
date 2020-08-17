@@ -1,6 +1,6 @@
-[submodule "background-removal-worker"]
-	path = background-removal-worker
-	url = git@github.com:vitfury/background-removal-worker.git
 [submodule "simple-worker-api"]
 	path = simple-worker-api
 	url = git@github.com:vitfury/simple-worker-api.git
+[submodule "image-background-remove-tool"]
+	path = image-background-remove-tool
+	url = git@github.com:vitfury/image-background-remove-tool.git

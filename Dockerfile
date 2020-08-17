@@ -1,6 +1,6 @@
 FROM php:7.2-apache
 
-COPY background-removal-worker /app
+COPY image-background-remove-tool/app /app
 COPY simple-worker-api /var/www/html
 
 # Upgrade installed packages
